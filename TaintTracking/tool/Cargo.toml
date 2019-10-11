@@ -1,0 +1,12 @@
+[package]
+name = "tool"
+version = "0.1.0"
+authors = [""]
+
+[dependencies]
+libc = "*"
+bit-vec="*"
+
+[lib]
+name = "tool"
+crate-type = ["dylib"]

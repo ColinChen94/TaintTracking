@@ -1,0 +1,32 @@
+
+        This is the building system for TaintTracking Pass, which is the content of term project for ECS 235B at
+    University of California, Davis in Winter 2019.
+
+        To build this pass, you need to have llvm installed in your computer. If you are using a Linux distribution,
+    you are good. Once you are done with installing, type following commands in terminal,
+
+            cd FinalProj
+            mkdir build
+            cd build
+            cmake ..
+            make
+            cd ../TaintTracking/tool
+            cargo build --release
+            cd ../..
+
+        When you have any C language source codes, you have to compile them with this pass. Type
+
+            clang -Xclang -load -Xclang build/TaintTracking/libLLVMPassTaintTracking.so -c test/test.c
+            cc -no-pie test/test.o TaintTracking/tool/target/release/libtool.so
+            LD_LIBRARY_PATH=TaintTracking/tool/target/release/ ./a.out
+
+        The execuatable will run with taint tracking analysis and print out the taints of each basic block!
+
+        If you want to see the llvm assembly language, just type
+
+            clang -O0 -emit-llvm test.c -c -o test.bc
+            llvm-dis < test.bc
+
+        No optimization can help understand!
+
+        So far, this pass can only analyze codes without loop. A new version is coming soon!
